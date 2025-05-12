@@ -1,0 +1,45 @@
+.itb-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 300px;
+}
+
+.itb-phone-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: border-color 0.15s ease-in-out;
+}
+
+.itb-phone-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.itb-phone-input.error {
+  border-color: #dc3545;
+}
+
+.itb-phone-input.error:focus {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.itb-country-select {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  padding: 0 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.itb-phone-input {
+  padding-left: 80px;
+}
