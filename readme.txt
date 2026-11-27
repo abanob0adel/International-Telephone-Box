@@ -2,8 +2,8 @@
 Contributors: abanob0adel
 Tags: telephone, international, phone, validation, formatting
 Requires at least: 5.0
-Tested up to: 6.8
-Stable tag: 1.1.5
+Tested up to: 7.1
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,13 +37,13 @@ Yes, you can customize the appearance through the plugin settings or by using cu
 
 This plugin includes the following libraries:
 
-* intl-tel-input (v17.0.19) - MIT License
+* intl-tel-input (v29.5.12) - MIT License
   - Source: https://github.com/jackocnr/intl-tel-input
-  - Copyright (c) 2013–2023 Jack O'Connor
+  - Unminified source: https://github.com/jackocnr/intl-tel-input/tree/v29.5.12/packages/core/src
+  - Copyright (c) 2014-2016 Jack O'Connor
+  - Bundled files: public/js/intlTelInputWithUtils.min.js, public/css/intlTelInput.css, public/img/flags.webp, public/img/flags-2x.webp (renamed from flags@2x.webp)
 
-* jQuery - MIT License
-  - Source: https://jquery.org/
-  - Copyright (c) OpenJS
+The plugin no longer requires jQuery. If your site already loads jQuery (as Elementor does), it is used only to listen for Elementor popups opening.
 
 == External Services ==
 
@@ -66,16 +66,32 @@ This plugin connects to the following external service:
 = 1.1.1 =
 * Removed all external JS/CSS dependencies
 
+= 1.1.2 =
+* Improved design and layout.
+
+= 1.1.3 =
+* Fix global issuse.
+
+= 1.1.4 =
+* Fix showing popups.
+
+= 1.1.5 =
+* Remove Israel from countries.
+
+= 1.2.0 =
+* Updated the bundled intl-tel-input library from v17.0.19 to v29.5.12 (newer phone number metadata, accessibility and country search improvements).
+* Adapted the plugin to the new library API. Validation, country selection, formatting, geolocation and the `full_phone` hidden field keep working as before.
+* jQuery is no longer required.
+* Flags now use WebP images and display sharply on high-resolution screens.
+* Fixed the `[intelebox_input]` shortcode field styles, which no longer matched the field's class names.
+* Fixed theme button styles leaking into the country selector.
+* Removed an unused legacy file.
+* Tested with WordPress 7.1.
+
 == Upgrade Notice ==
+
+= 1.2.0 =
+Updates the bundled intl-tel-input library to v29.5.12. If you added custom CSS for the phone field, check it: the library renamed several CSS classes (for example `.iti__selected-flag` is now `.iti__selected-country`).
 
 = 1.1.1 =
 Removed all externally loaded assets. Please update to avoid remote dependency issues.
-
-= 1.1.2 =
-* Improved design and layout.
-= 1.1.3 =
-* Fix global issuse.
-= 1.1.4 =
-* Fix showing popups.
-= 1.1.5 =
-* Remove Israel from countries.

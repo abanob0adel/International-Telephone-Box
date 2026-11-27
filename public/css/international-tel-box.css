@@ -1,14 +1,22 @@
+/* WordPress.org does not allow "@" in file names, so the bundled 2x flag
+   sprite is renamed from flags@2x.webp. */
+:root {
+  --iti-path-flags-2x: url(../img/flags-2x.webp);
+}
+
+/* [intelebox_input] shortcode field (.itb-* kept for markup from 1.0.x) */
+.intelebox-container,
 .itb-container {
   position: relative;
   display: inline-block;
   width: 100%;
   max-width: 300px;
 }
-.iti--container,
-.iti .iti__country-list {
-  position: absolute;
-  z-index: 2147483647 !important;
+.intelebox-container .iti,
+.itb-container .iti {
+  width: 100%;
 }
+.intelebox-phone-input,
 .itb-phone-input {
   width: 100%;
   padding: 8px 12px;
@@ -18,60 +26,52 @@
   line-height: 1.5;
   transition: border-color 0.15s ease-in-out;
 }
-
+.intelebox-phone-input:focus,
 .itb-phone-input:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
-
+.intelebox-phone-input.error,
 .itb-phone-input.error {
   border-color: #dc3545;
 }
-
+.intelebox-phone-input.error:focus,
 .itb-phone-input.error:focus {
   box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
 }
 
-.itb-country-select {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  padding: 0 8px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
+/* Keep the country list above theme headers and Elementor popups. */
+.iti--detached-country-selector,
+.iti .iti__country-selector {
+  z-index: 2147483647 !important;
 }
 
-.itb-phone-input {
-  padding-left: 80px;
+/* Keep the field inside narrow containers: the dial code padding is added
+   to inputs sized by their size attribute (e.g. Contact Form 7). */
+.iti,
+.iti input.iti__tel-input {
+  max-width: 100%;
 }
-/* Fix Style forms */
-.iti--allow-dropdown {
-  position: relative !important;
-}
-.iti__flag-container {
-  position: absolute !important;
-  right: 0 !important;
-  height: 100% !important;
-  z-index: 999 !important;
-  width: fit-content !important;
-  top: -50% !important;
-  transform: translateY(75%) !important;
-}
-.iti__flag {
-  width: 20px !important;
-  background-image: url(../img/flags.png) !important;
-}
-.iti__selected-flag {
-  z-index: 1;
-  position: relative !important;
-  display: flex !important;
-  align-items: center !important;
-  padding: 0 6px 0 8px !important;
+
+/* Fix Style forms: the selected country is a <button> since intl-tel-input
+   v21, so undo the button styles that themes and form plugins add. */
+.iti button.iti__selected-country,
+.iti button.iti__selected-country:hover,
+.iti button.iti__selected-country:focus {
+  width: auto;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
   background: transparent !important;
-}
-.iti--separate-dial-code input[type="tel"] {
-  padding-left: 70px !important;
+  box-shadow: none;
+  color: inherit;
+  font-size: inherit;
+  letter-spacing: normal;
+  line-height: inherit;
+  text-transform: none;
 }

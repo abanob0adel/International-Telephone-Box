@@ -42,12 +42,12 @@ class Intelebox_Main
             'intl-tel-input',
             INTELEBOX_PLUGIN_URL . 'public/css/intlTelInput.css',
             array(),
-            '17.0.19'
+            INTELEBOX_INTL_TEL_INPUT_VERSION
         );
         wp_enqueue_style(
             'international-telephone-box',
             INTELEBOX_PLUGIN_URL . 'public/css/international-tel-box.css',
-            array(),
+            array('intl-tel-input'),
             INTELEBOX_VERSION
         );
     }
@@ -59,26 +59,20 @@ class Intelebox_Main
      */
     public function enqueue_public_scripts()
     {
+        // intl-tel-input v29 has no jQuery build and loads its utils script
+        // with a dynamic import(), so use the bundle that has utils built in.
         wp_enqueue_script(
             'intl-tel-input',
-            INTELEBOX_PLUGIN_URL . 'public/js/intlTelInput.min.js',
-            array('jquery'),
-            '17.0.19',
-            true
-        );
-
-        wp_enqueue_script(
-            'intl-tel-input-utils',
-            INTELEBOX_PLUGIN_URL . 'public/js/utils.js',
-            array('intl-tel-input'),
-            '17.0.19',
+            INTELEBOX_PLUGIN_URL . 'public/js/intlTelInputWithUtils.min.js',
+            array(),
+            INTELEBOX_INTL_TEL_INPUT_VERSION,
             true
         );
 
         wp_enqueue_script(
             'international-telephone-box',
             INTELEBOX_PLUGIN_URL . 'public/js/international-tel-box.js',
-            array('jquery'),
+            array('intl-tel-input'),
             INTELEBOX_VERSION,
             true
         );
