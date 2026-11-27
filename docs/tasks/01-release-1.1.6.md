@@ -1,3 +1,5 @@
+> **Superseded** by `02-release-1.2.0.md`. 1.1.6 was never released; its fixes ship in 1.2.0.
+
 # Task 01: Release 1.1.6 (bug-fix patch)
 
 Branch: `release/1.1.6` · Implementer: opencode · Reviewer: Claude

@@ -16,9 +16,10 @@ decision and is stated in the readme.
 
 ---
 
-## Release 1.1.6: bug-fix patch (now)
+## Release 1.2.0: library upgrade and bug fixes (now)
 
-Low-risk fixes. No new settings, no breaking changes. Task: `docs/tasks/01-release-1.1.6.md`.
+PR #1 upgrades intl-tel-input from 17.0.19 to 29.5.12 and drops jQuery. The bug fixes that were
+planned for 1.1.6 ship inside 1.2.0 instead (1.1.6 is not released). Task: `docs/tasks/02-release-1.2.0.md`.
 
 - The shortcode input has no `name`, so the number is never submitted.
 - The stylesheet targets `.itb-*`, but the markup uses `.intelebox-*`, so the styles never apply.
@@ -36,7 +37,7 @@ Low-risk fixes. No new settings, no breaking changes. Task: `docs/tasks/01-relea
   - Where the field applies: all `input[type=tel]`, a CSS selector, or shortcode/integrations only.
   - Country detection: off / browser locale / server header (`CF-IPCountry`, etc.) / ipapi.co. This setting is opt-in and is disclosed.
   - Error messages, number type (mobile/any), and separate dial code on/off.
-- **Upgrade intl-tel-input** from 17 to the latest major (v29, no jQuery). Load `utils` lazily and only enqueue assets on pages that contain a phone field.
+- Only enqueue assets on pages that contain a phone field (the v29 bundle with utils is large).
 - **Performance**: replace the whole-document attribute `MutationObserver` with targeted observation and integration events.
 - **Backward compatibility**: keep the `[intelebox_input]` shortcode and its attributes working, and migrate silently.
 
