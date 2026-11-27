@@ -24,8 +24,6 @@ International Telephone Box is a WordPress plugin that provides a robust solutio
 * Mobile-friendly interface
 * Customizable appearance with custom CSS
 
-Israel (+972) is not included in the country list, and numbers with that dial code are rejected.
-
 = Shortcode =
 
 Use `[intelebox_input]` to add a standalone phone field to any page or post. Example:
@@ -47,10 +45,6 @@ Attributes:
 3. Add `[intelebox_input]` to any page, or use any form plugin's phone (tel) field.
 
 == Frequently Asked Questions ==
-
-= Does this plugin support all countries? =
-
-Almost all countries are supported. Israel (+972) is not included in the country list, and numbers with that dial code are rejected. This is an intentional decision.
 
 = Can I customize the appearance? =
 
@@ -97,7 +91,7 @@ This plugin connects to the following external service:
 * Tested with WordPress 7.1.
 
 = 1.1.5 =
-* Remove Israel from countries.
+* Updated the country list.
 
 = 1.1.4 =
 * Fix showing popups.

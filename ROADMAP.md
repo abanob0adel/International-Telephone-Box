@@ -11,8 +11,8 @@ WordPress target: tested up to 7.1 (7.2 ships 2026-12-08). PHP minimum: 7.4.
 One phone field that works across every major form builder. It respects visitor privacy
 by default, stores clean E.164 numbers, and is first-class in Arabic and RTL.
 
-Israel (`il` / `+972`) stays excluded from the country list. This is the owner's
-decision and is stated in the readme.
+Israel (`il` / `+972`) stays excluded from the country list. This is the owner's decision.
+It is not mentioned in the readme or any user-facing text.
 
 ---
 

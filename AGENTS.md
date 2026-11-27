@@ -23,7 +23,7 @@ Read `ROADMAP.md` and the task file you were given before changing anything. Do 
 - Make user-facing strings translatable with the `international-telephone-box` text domain.
 - No jQuery dependency: touch `window.jQuery` only when it already exists (Elementor's popup event).
 - Backward compatibility: `[intelebox_input]` and its `placeholder` / `class` attributes must keep working.
-- Israel (`il` / `+972`) stays excluded. This is intentional. Do not remove it.
+- Israel (`il` / `+972`) stays excluded. This is intentional. Do not remove it, and do not mention it in `readme.txt` or any user-facing text.
 - Never edit `tags/` or SVN, and never bump versions unless the task says to. Releases go through `docs/RELEASING.md`.
 
 ## Checks before you finish
