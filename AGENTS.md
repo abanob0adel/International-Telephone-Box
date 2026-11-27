@@ -12,6 +12,8 @@ Read `ROADMAP.md` and the task file you were given before changing anything. Do 
 - `includes/class-intelebox-main.php`: `International_Telephone_Box\Intelebox_Main` (hooks, assets, shortcode)
 - `public/js/international-tel-box.js`: front-end init
 - `public/js/intlTelInputWithUtils.min.js`, `public/css/intlTelInput.css`, `public/img/flags*.webp`: vendored intl-tel-input 29.5.12 (`INTELEBOX_INTL_TEL_INPUT_VERSION`). Do not edit them.
+- `includes/data/countries.php`: generated country list (`tools/generate-countries.mjs`). Do not edit by hand.
+- `public/admin/`: settings page CSS, JS, and bundled OFL fonts. All admin UI follows `docs/DESIGN-SYSTEM.md`.
 - `readme.txt`: the WordPress.org listing. Follow the format in https://developer.wordpress.org/plugins/wordpress-org/how-your-readme-txt-works/
 - `.distignore`: files kept out of the release zip
 

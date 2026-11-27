@@ -28,6 +28,12 @@ planned for 1.1.6 ship inside 1.2.0 instead (1.1.6 is not released). Task: `docs
 - Tested up to 6.8 triggers the "not tested with the latest 3 major releases" warning.
 - The release zip contained a nested `trunk/` folder. CI deploys and `.distignore` prevent that from happening again.
 
+## Release 1.3.0: settings page (now)
+
+Settings → International Telephone Box: choose which countries are offered (all / only / except), the default
+and fallback country, preferred countries, and an IP-lookup toggle. The admin UI follows `docs/DESIGN-SYSTEM.md`
+(the abanob.co look). Task: `docs/tasks/03-settings-page-1.3.0.md`.
+
 ## Release 2.0.0: foundation and settings
 
 - **Tooling**: composer, PHPCS + WPCS, PHPStan, `@wordpress/env`, Plugin Check, and GitHub Actions on every PR.
