@@ -48,13 +48,13 @@ Attributes:
 
 == Frequently Asked Questions ==
 
-= All countries? =
+= Does this plugin support all countries? =
 
 Almost all countries are supported. Israel (+972) is not included in the country list, and numbers with that dial code are rejected. This is an intentional decision.
 
-= Customize appearance =
+= Can I customize the appearance? =
 
-Yes, with custom CSS only.
+Yes, with custom CSS. The plugin has no settings page yet.
 
 = How do I get the full international number? =
 
@@ -85,6 +85,8 @@ This plugin connects to the following external service:
 == Changelog ==
 
 = 1.2.0 =
+* Fixed: the `[intelebox_input]` field now has a `name`, so the number is submitted with the form.
+* New: `name`, `id` and `required` shortcode attributes.
 * Updated the bundled intl-tel-input library from v17.0.19 to v29.5.12 (newer phone number metadata, accessibility and country search improvements).
 * Adapted the plugin to the new library API. Validation, country selection, formatting, geolocation and the `full_phone` hidden field keep working as before.
 * jQuery is no longer required.
@@ -93,8 +95,6 @@ This plugin connects to the following external service:
 * Fixed theme button styles leaking into the country selector.
 * Removed an unused legacy file.
 * Tested with WordPress 7.1.
-* Fixed: the `[intelebox_input]` field now has a `name`, so the number is submitted with the form.
-* New: `name`, `id` and `required` shortcode attributes.
 
 = 1.1.5 =
 * Remove Israel from countries.
