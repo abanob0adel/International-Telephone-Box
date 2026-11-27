@@ -1,0 +1,650 @@
+/**
+ * International Telephone Box — admin design system.
+ *
+ * Every rule is scoped under `.intelebox-admin`. See docs/DESIGN-SYSTEM.md.
+ * Logical properties are used throughout for RTL. No gradients, no shadows,
+ * no rounded cards; hairline rules; pill buttons.
+ */
+
+@font-face {
+    font-family: "Schibsted Grotesk";
+    src: url("../fonts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2");
+    font-weight: 400 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("../fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+    font-weight: 100 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+.intelebox-admin {
+    /* Tokens */
+    --ib-paper: #f4f1ea;
+    --ib-paper-2: #efebe2;
+    --ib-ink: #1a1917;
+    --ib-text: #3c3a35;
+    --ib-muted: #6b665e;
+    --ib-line: #c9c2b2;
+    --ib-accent: #8a5a2b;
+    --ib-accent-soft: rgba(138, 90, 43, .10);
+    --ib-danger: #a83a3a;
+    --ib-success: #00795e;
+    --ib-radius-pill: 9999px;
+    --ib-radius-sm: 4px;
+
+    --ib-font-display: "Clash Display", "Schibsted Grotesk", system-ui, sans-serif;
+    --ib-font-body: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --ib-font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+    box-sizing: border-box;
+    max-width: 880px;
+    margin: 0;
+    padding-block-start: 40px;
+    padding-inline: 20px;
+    background: var(--ib-paper);
+    color: var(--ib-text);
+    font-family: var(--ib-font-body);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.intelebox-admin *,
+.intelebox-admin *::before,
+.intelebox-admin *::after {
+    box-sizing: border-box;
+}
+
+/* ---------------------------------------------------------------- header */
+
+.intelebox-header {
+    padding-block-end: 32px;
+}
+
+.intelebox-eyebrow {
+    margin: 0 0 12px;
+    font-family: var(--ib-font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    color: var(--ib-muted);
+}
+
+.intelebox-title {
+    margin: 0;
+    font-family: var(--ib-font-display);
+    font-size: 44px;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    color: var(--ib-ink);
+}
+
+.intelebox-title em {
+    font-style: normal;
+    color: var(--ib-accent);
+}
+
+.intelebox-intro {
+    margin: 16px 0 0;
+    max-width: 60ch;
+    color: var(--ib-text);
+}
+
+.intelebox-heading {
+    margin: 0;
+    font-family: var(--ib-font-display);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--ib-ink);
+}
+
+/* --------------------------------------------------------------- sections */
+
+.intelebox-section {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 32px;
+    padding-block: 40px;
+    border-block-start: 1px solid var(--ib-line);
+}
+
+.intelebox-section__aside .intelebox-help {
+    margin-block-start: 8px;
+}
+
+.intelebox-section__main {
+    min-width: 0;
+}
+
+.intelebox-fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+}
+
+.intelebox-field + .intelebox-field,
+.intelebox-fieldset + .intelebox-field,
+.intelebox-field + .intelebox-fieldset,
+.intelebox-fieldset + .intelebox-fieldset {
+    margin-block-start: 28px;
+}
+
+.intelebox-field {
+    margin: 0;
+}
+
+/* ------------------------------------------------------------------ type */
+
+.intelebox-label {
+    display: block;
+    margin-block-end: 8px;
+    padding: 0;
+    font-family: var(--ib-font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    color: var(--ib-muted);
+}
+
+.intelebox-help {
+    margin: 8px 0 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ib-muted);
+}
+
+.intelebox-help a {
+    color: var(--ib-accent);
+    text-decoration: underline;
+}
+
+/* ------------------------------------------------------------- controls */
+
+.intelebox-input,
+.intelebox-select {
+    appearance: none;
+    -webkit-appearance: none;
+    display: block;
+    width: 100%;
+    max-width: 420px;
+    margin: 0;
+    padding: 10px 0;
+    background: transparent;
+    border: 0;
+    border-block-end: 1px solid var(--ib-line);
+    border-radius: 0;
+    color: var(--ib-text);
+    font-family: var(--ib-font-body);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.intelebox-input::placeholder {
+    color: var(--ib-muted);
+    opacity: 1;
+}
+
+.intelebox-input:focus,
+.intelebox-select:focus {
+    outline: none;
+    border-block-end-color: var(--ib-ink);
+}
+
+.intelebox-select {
+    padding-inline-end: 24px;
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--ib-muted) 50%),
+        linear-gradient(135deg, var(--ib-muted) 50%, transparent 50%);
+    background-position:
+        calc(100% - 14px) 50%,
+        calc(100% - 8px) 50%;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+}
+
+[dir="rtl"] .intelebox-select {
+    background-position:
+        calc(0% + 14px) 50%,
+        calc(0% + 8px) 50%;
+}
+
+.intelebox-search {
+    margin-block-end: 12px;
+    max-width: none;
+}
+
+/* Focus ring everywhere keyboard-usable */
+.intelebox-admin :focus-visible {
+    outline: 2px solid var(--ib-accent);
+    outline-offset: 3px;
+}
+
+/* ------------------------------------------------------ segmented control */
+
+.intelebox-segmented {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid var(--ib-line);
+    border-radius: var(--ib-radius-pill);
+    margin-block-end: 12px;
+    max-width: 100%;
+}
+
+.intelebox-segmented__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.intelebox-segmented__label {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: var(--ib-radius-pill);
+    font-family: var(--ib-font-display);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ib-ink);
+    cursor: pointer;
+    transition: color 150ms ease, background-color 150ms ease;
+}
+
+.intelebox-segmented__input:checked + .intelebox-segmented__label {
+    background: var(--ib-ink);
+    color: var(--ib-paper);
+}
+
+.intelebox-segmented__input:focus-visible + .intelebox-segmented__label {
+    outline: 2px solid var(--ib-accent);
+    outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------- toggle */
+
+.intelebox-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.intelebox-toggle__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.intelebox-toggle__track {
+    position: relative;
+    flex: 0 0 auto;
+    width: 40px;
+    height: 22px;
+    border-radius: var(--ib-radius-pill);
+    background: var(--ib-line);
+    transition: background-color 150ms ease;
+}
+
+.intelebox-toggle__track::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 2px;
+    inset-inline-start: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--ib-paper);
+}
+
+.intelebox-toggle__input:checked + .intelebox-toggle__track {
+    background: var(--ib-ink);
+}
+
+.intelebox-toggle__input:checked + .intelebox-toggle__track::after {
+    inset-inline-start: 20px;
+}
+
+.intelebox-toggle__input:focus-visible + .intelebox-toggle__track {
+    outline: 2px solid var(--ib-accent);
+    outline-offset: 3px;
+}
+
+.intelebox-toggle__label {
+    color: var(--ib-text);
+    font-size: 15px;
+}
+
+/* ------------------------------------------------------------------ chips */
+
+.intelebox-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-block: 12px;
+}
+
+.intelebox-chips:empty {
+    display: none;
+}
+
+.intelebox-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 100%;
+    padding: 6px 8px 6px 10px;
+    border: 1px solid var(--ib-line);
+    border-radius: var(--ib-radius-pill);
+    background: var(--ib-paper);
+    font-size: 13px;
+    color: var(--ib-ink);
+}
+
+.intelebox-chip .iti__flag {
+    flex: 0 0 auto;
+}
+
+.intelebox-chip__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.intelebox-chip__dial {
+    font-family: var(--ib-font-mono);
+    font-size: 12px;
+    color: var(--ib-muted);
+}
+
+.intelebox-chip__remove {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ib-muted);
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 150ms ease, background-color 150ms ease;
+}
+
+.intelebox-chip__remove:hover {
+    color: var(--ib-ink);
+    background: var(--ib-paper-2);
+}
+
+/* ------------------------------------------------------------ country list */
+
+.intelebox-picker__toolbar {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-block: 8px 12px;
+}
+
+.intelebox-counter {
+    margin: 0;
+    font-family: var(--ib-font-mono);
+    font-size: 12px;
+    color: var(--ib-muted);
+}
+
+.intelebox-text-button {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ib-accent);
+    font-family: var(--ib-font-body);
+    font-size: 13px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.intelebox-text-button:hover {
+    color: var(--ib-ink);
+}
+
+.intelebox-country-list {
+    max-height: 360px;
+    overflow-y: auto;
+    border: 1px solid var(--ib-line);
+    border-radius: var(--ib-radius-sm);
+    background: var(--ib-paper);
+}
+
+.intelebox-country-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 40px;
+    padding: 8px 12px;
+    border-block-end: 1px solid var(--ib-line);
+    cursor: pointer;
+    margin: 0;
+    transition: background-color 150ms ease;
+}
+
+.intelebox-country-row:last-child {
+    border-block-end: 0;
+}
+
+.intelebox-country-row:hover {
+    background: var(--ib-paper-2);
+}
+
+.intelebox-country-row:has(input[type="checkbox"]:checked),
+.intelebox-country-row.intelebox-checked {
+    background: var(--ib-accent-soft);
+}
+
+.intelebox-country-row[hidden] {
+    display: none;
+}
+
+.intelebox-country-row input[type="checkbox"] {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: var(--ib-accent);
+}
+
+.intelebox-country-row .iti__flag {
+    flex: 0 0 auto;
+}
+
+.intelebox-country-name {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--ib-ink);
+}
+
+.intelebox-country-dial {
+    flex: 0 0 auto;
+    font-family: var(--ib-font-mono);
+    font-size: 12px;
+    color: var(--ib-muted);
+    text-align: end;
+}
+
+.intelebox-no-results {
+    margin: 0;
+    padding: 16px 12px;
+    color: var(--ib-muted);
+    font-size: 13px;
+}
+
+/* --------------------------------------------------------------- preview */
+
+.intelebox-preview {
+    max-width: 420px;
+    margin-block-start: 8px;
+}
+
+.intelebox-preview .intelebox-input {
+    max-width: none;
+}
+
+/* The preview uses intl-tel-input's own styles; just blend the underline. */
+.intelebox-preview .iti {
+    width: 100%;
+}
+
+/* --------------------------------------------------------------- buttons */
+
+.intelebox-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-block: 40px;
+    border-block-start: 1px solid var(--ib-line);
+}
+
+.intelebox-button {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    border-radius: var(--ib-radius-pill);
+    font-family: var(--ib-font-display);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.intelebox-button--primary {
+    background: var(--ib-ink);
+    color: var(--ib-paper);
+    border: 0;
+}
+
+.intelebox-button--primary:hover {
+    background: #000;
+}
+
+.intelebox-button--secondary {
+    background: transparent;
+    color: var(--ib-ink);
+    border: 1px solid var(--ib-line);
+}
+
+.intelebox-button--secondary:hover {
+    border-color: var(--ib-ink);
+}
+
+.intelebox-button:focus-visible {
+    outline: 2px solid var(--ib-accent);
+    outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------- notices */
+
+.intelebox-admin .notice,
+.intelebox-admin div.notice {
+    margin: 0 0 24px;
+    padding: 8px 0 8px 12px;
+    border: 0;
+    border-inline-start: 2px solid var(--ib-line);
+    background: transparent;
+    box-shadow: none;
+    color: var(--ib-text);
+}
+
+.intelebox-admin .notice p {
+    margin: 0;
+    padding: 0;
+}
+
+.intelebox-admin .notice-success,
+.intelebox-admin .notice.is-success,
+.intelebox-admin .updated {
+    border-inline-start-color: var(--ib-success);
+    color: var(--ib-success);
+}
+
+.intelebox-admin .notice-error,
+.intelebox-admin .notice.is-error,
+.intelebox-admin .error {
+    border-inline-start-color: var(--ib-danger);
+    color: var(--ib-danger);
+}
+
+.intelebox-admin .notice-warning,
+.intelebox-admin .notice.is-warning {
+    border-inline-start-color: var(--ib-accent);
+}
+
+.intelebox-admin .notice-info,
+.intelebox-admin .notice.is-info {
+    border-inline-start-color: var(--ib-ink);
+}
+
+.intelebox-admin .notice-dismiss {
+    color: var(--ib-muted);
+}
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 781px) {
+    .intelebox-admin {
+        padding-inline: 16px;
+    }
+
+    .intelebox-title {
+        font-size: 32px;
+    }
+
+    .intelebox-section {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding-block: 28px;
+    }
+}
+
+/* ------------------------------------------------------------- reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+    .intelebox-admin *,
+    .intelebox-admin *::before,
+    .intelebox-admin *::after {
+        transition-duration: 0.001ms !important;
+        animation-duration: 0.001ms !important;
+    }
+}

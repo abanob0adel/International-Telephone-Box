@@ -17,6 +17,11 @@ class Intelebox_Main
     public function __construct()
     {
         $this->define_public_hooks();
+
+        if ( is_admin() ) {
+            require_once INTELEBOX_PLUGIN_DIR . 'includes/class-intelebox-admin.php';
+            new Intelebox_Admin();
+        }
     }
 
     /**
@@ -75,6 +80,36 @@ class Intelebox_Main
             array('intl-tel-input'),
             INTELEBOX_VERSION,
             true
+        );
+
+        wp_localize_script(
+            'international-telephone-box',
+            'inteleboxConfig',
+            self::public_config()
+        );
+    }
+
+    /**
+     * Build the config passed to the front-end script.
+     *
+     * @return array
+     */
+    public static function public_config()
+    {
+        $settings = Intelebox_Settings::get();
+
+        $mode     = $settings['country_mode'];
+        $selected = $settings['countries'];
+
+        return array(
+            // include mode → countries; otherwise [].
+            'onlyCountries'   => ( 'include' === $mode ) ? array_values( $selected ) : array(),
+            // exclude mode → countries; otherwise [] (the JS always adds "il").
+            'excludeCountries' => ( 'exclude' === $mode ) ? array_values( $selected ) : array(),
+            'countryOrder'    => array_values( $settings['preferred_countries'] ),
+            'initialCountry'  => $settings['initial_country'],
+            'fallbackCountry' => $settings['fallback_country'],
+            'geoLookup'       => (bool) $settings['geo_lookup'],
         );
     }
 
