@@ -1,0 +1,42 @@
+name: Deploy to WordPress.org
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check versions match the tag
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          HEADER=$(grep -oP '^\s*\*\s*Version:\s*\K[0-9.]+' international-telephone-box.php)
+          CONST=$(grep -oP "define\('INTELEBOX_VERSION',\s*'\K[0-9.]+" international-telephone-box.php)
+          STABLE=$(grep -oP '^Stable tag:\s*\K[0-9.]+' readme.txt)
+          echo "tag=$TAG header=$HEADER const=$CONST stable=$STABLE"
+          [ "$TAG" = "$HEADER" ] && [ "$TAG" = "$CONST" ] && [ "$TAG" = "$STABLE" ]
+
+      - name: Lint PHP
+        run: find . -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l
+
+      - name: WordPress plugin deploy
+        id: deploy
+        uses: 10up/action-wordpress-plugin-deploy@2.3.0
+        with:
+          generate-zip: true
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: international-telephone-box
+
+      - name: GitHub release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: ${{ steps.deploy.outputs.zip-path }}
+          generate_release_notes: true
