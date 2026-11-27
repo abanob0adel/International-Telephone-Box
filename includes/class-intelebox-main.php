@@ -88,16 +88,28 @@ class Intelebox_Main
     public function render_tel_box($atts)
     {
         $atts = shortcode_atts(array(
-            'placeholder' => 'Enter phone number',
+            'name'        => 'phone',
+            'id'          => '',
+            'required'    => '',
+            'placeholder' => __( 'Enter phone number', 'international-telephone-box' ),
             'class'       => '',
         ), $atts);
+
+        $required = in_array(
+            strtolower( trim( (string) $atts['required'] ) ),
+            array( 'true', '1', 'yes' ),
+            true
+        );
 
         ob_start();
 ?>
         <div class="intelebox-container <?php echo esc_attr($atts['class']); ?>">
             <input type="tel"
+                name="<?php echo esc_attr( $atts['name'] ); ?>"
+                <?php if ( ! empty( $atts['id'] ) ) { ?>id="<?php echo esc_attr( $atts['id'] ); ?>"<?php } ?>
                 class="intelebox-phone-input"
                 placeholder="<?php echo esc_attr($atts['placeholder']); ?>"
+                <?php if ( $required ) { ?>required<?php } ?>
                 data-validate="true">
         </div>
 <?php

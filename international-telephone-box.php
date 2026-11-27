@@ -6,6 +6,7 @@
  * Description: A WordPress plugin for handling international telephone numbers with geo location.
  * Version: 1.2.0
  * Requires at least: 5.0
+ * Requires PHP: 7.4
  * Author: Abanob Adel
  * Author URI: https://abanob.co
  * Text Domain: international-telephone-box
