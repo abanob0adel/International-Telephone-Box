@@ -4,7 +4,7 @@ Tags: telephone, international, phone, validation, formatting
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,11 @@ International Telephone Box is a WordPress plugin that provides a robust solutio
 * Bundled assets only (no remote CDN JavaScript, CSS or fonts)
 * Mobile-friendly interface
 * Customizable appearance with custom CSS
+* A settings page to choose which countries are offered
+
+= Settings =
+
+Go to **Settings → International Telephone Box** to configure the phone field. You can choose which countries are offered (all, only selected, or all except selected), the default and fallback country, up to five preferred countries shown at the top of the dropdown, and whether the visitor's country is detected with ipapi.co. The page includes a live preview. With no settings saved, the field behaves exactly as it did before.
 
 = Shortcode =
 
@@ -48,7 +53,11 @@ Attributes:
 
 = Can I customize the appearance? =
 
-Yes, with custom CSS. The plugin has no settings page yet.
+Yes. The **Settings → International Telephone Box** page lets you choose which countries are offered and how the default country is picked, and you can add custom CSS for styling.
+
+= Can I limit which countries are available? =
+
+Yes. On **Settings → International Telephone Box**, choose "Only selected" to offer just a chosen set of countries, or "All except selected" to remove specific countries. You can also set a default and fallback country and up to five preferred countries shown at the top.
 
 = How do I get the full international number? =
 
@@ -64,6 +73,14 @@ This plugin includes the following libraries:
   - Copyright (c) 2014-2016 Jack O'Connor
   - Bundled files: public/js/intlTelInputWithUtils.min.js, public/css/intlTelInput.css, public/img/flags.webp, public/img/flags-2x.webp (renamed from flags@2x.webp)
 
+* Schibsted Grotesk - SIL Open Font License 1.1 (OFL 1.1)
+  - Bundled file: public/admin/fonts/schibsted-grotesk-latin-wght-normal.woff2
+  - Licence: public/admin/fonts/OFL-schibsted-grotesk.txt
+
+* JetBrains Mono - SIL Open Font License 1.1 (OFL 1.1)
+  - Bundled file: public/admin/fonts/jetbrains-mono-latin-wght-normal.woff2
+  - Licence: public/admin/fonts/OFL-jetbrains-mono.txt
+
 The plugin no longer requires jQuery. If your site already loads jQuery (as Elementor does), it is used only to listen for Elementor popups opening.
 
 == External Services ==
@@ -75,8 +92,20 @@ This plugin connects to the following external service:
   - No personally identifiable data is stored or logged.
   - Terms: https://ipapi.co/terms/
   - Privacy: https://ipapi.co/privacy/
+  - This lookup can be turned off in **Settings → International Telephone Box**; when it is off, no request to ipapi.co is made and the fallback country is used.
+
+== Screenshots ==
+
+1. Settings page: choose which countries the phone field offers.
 
 == Changelog ==
+
+= 1.3.0 =
+* New: **Settings → International Telephone Box** settings page. Choose which countries are offered (all / only selected / all except selected), the default and fallback country, up to five preferred countries, and whether to detect the visitor's country with ipapi.co. Includes a live preview, follows the admin design system, works without JavaScript, and resets to defaults. With no settings saved, the field behaves exactly as in 1.2.0.
+* New: `Intelebox_Settings` class; a single `intelebox_settings` option sanitized on save and re-validated on read.
+* New: `uninstall.php` removes the `intelebox_settings` option on uninstall (single site and multisite).
+* Bundled the Schibsted Grotesk and JetBrains Mono fonts (SIL OFL 1.1) for the settings page.
+* The IP-based country detection can be turned off in settings.
 
 = 1.2.0 =
 * Fixed: the `[intelebox_input]` field now has a `name`, so the number is submitted with the form.
@@ -112,6 +141,9 @@ This plugin connects to the following external service:
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+Adds a Settings → International Telephone Box page to choose which countries are offered and how the default country is picked. With no settings saved, behaviour is unchanged from 1.2.0. IP-based country detection can now be turned off.
 
 = 1.2.0 =
 Updates the bundled intl-tel-input library to v29.5.12. If you added custom CSS for the phone field, check it: the library renamed several CSS classes (for example `.iti__selected-flag` is now `.iti__selected-country`). Shortcode fields are now submitted as `phone` unless a `name` is given.

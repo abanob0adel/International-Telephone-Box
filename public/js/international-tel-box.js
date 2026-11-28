@@ -7,9 +7,62 @@ function isVisible(el) {
 }
 
 function initializeInternationalTelephoneBox(context = document) {
-  const EXCLUDED_ISO = ["il"];
+  // Site settings, injected as JSON by wp_add_inline_script. Defaults match 1.2.0.
+  const config =
+    typeof window.inteleboxConfig === "object" && window.inteleboxConfig
+      ? window.inteleboxConfig
+      : {};
+
   const BLOCKED_DIALS = ["+972"];
-  const FALLBACK_COUNTRY = "eg";
+
+  const FALLBACK_COUNTRY =
+    typeof config.fallbackCountry === "string" && config.fallbackCountry
+      ? config.fallbackCountry.toLowerCase()
+      : "eg";
+
+  // Only used in "include" mode; empty means every country is offered.
+  const ONLY_COUNTRIES = (Array.isArray(config.onlyCountries)
+    ? config.onlyCountries
+    : []
+  )
+    .filter((c) => typeof c === "string")
+    .map((c) => c.toLowerCase());
+
+  // "il" is always excluded; site settings can exclude more.
+  const EXCLUDED_ISO = ["il"]
+    .concat(
+      Array.isArray(config.excludeCountries)
+        ? config.excludeCountries
+            .filter((c) => typeof c === "string")
+            .map((c) => c.toLowerCase())
+        : []
+    )
+    .filter((c, i, arr) => arr.indexOf(c) === i);
+
+  // Preferred countries shown at the top, in order. Default: fallback first.
+  const COUNTRY_ORDER = (Array.isArray(config.countryOrder)
+    ? config.countryOrder
+        .filter((c) => typeof c === "string")
+        .map((c) => c.toLowerCase())
+    : [FALLBACK_COUNTRY]
+  ).filter((c, i, arr) => arr.indexOf(c) === i);
+
+  const INITIAL_COUNTRY =
+    typeof config.initialCountry === "string" && config.initialCountry
+      ? config.initialCountry.toLowerCase()
+      : "auto";
+
+  // `geoLookup` is a bool from PHP; accept the usual serialized forms too.
+  const GEO_LOOKUP = (function () {
+    const v = config.geoLookup;
+    if (v === undefined || v === null || v === "") return true;
+    if (typeof v === "boolean") return v;
+    if (typeof v === "number") return v !== 0;
+    const s = String(v).toLowerCase();
+    if (s === "false" || s === "0" || s === "no" || s === "off") return false;
+    if (s === "true" || s === "1" || s === "yes" || s === "on") return true;
+    return true;
+  })();
 
   if (typeof window.intlTelInput !== "function") return;
 
@@ -26,23 +79,23 @@ function initializeInternationalTelephoneBox(context = document) {
     phoneInput.parentNode.insertBefore(wrapper, phoneInput);
     wrapper.appendChild(phoneInput);
 
+    // The ipapi.co lookup's result falls back to the fallback country when it
+    // is empty, excluded, or (in include mode) not in onlyCountries.
+    function resolveAutoCountry(code) {
+      code = String(code || "").toLowerCase();
+      if (!code || EXCLUDED_ISO.includes(code)) return FALLBACK_COUNTRY;
+      if (ONLY_COUNTRIES.length && !ONLY_COUNTRIES.includes(code)) {
+        return FALLBACK_COUNTRY;
+      }
+      return code;
+    }
+
     // intl-tel-input v29 option names. The v17 names used up to 1.1.5 are
     // noted next to each one.
-    const iti = window.intlTelInput(phoneInput, {
-      // v17: initialCountry "auto" + geoIpLookup(callback).
-      initialCountryLookup: function () {
-        return fetch("https://ipapi.co/json")
-          .then((res) => res.json())
-          .then((data) => {
-            let code = (data.country_code || "").toLowerCase();
-            if (!code || EXCLUDED_ISO.includes(code)) code = FALLBACK_COUNTRY;
-            return code;
-          })
-          .catch(() => FALLBACK_COUNTRY);
-      },
+    const itiOptions = {
       separateDialCode: true,
       // v17: preferredCountries.
-      countryOrder: [FALLBACK_COUNTRY],
+      countryOrder: COUNTRY_ORDER,
       excludeCountries: EXCLUDED_ISO,
       // v17: formatOnDisplay true + nationalMode false.
       numberDisplayFormat: "INTERNATIONAL",
@@ -66,7 +119,31 @@ function initializeInternationalTelephoneBox(context = document) {
       allowedNumberTypes: null,
       allowNumberExtensions: true,
       strictMode: false,
-    });
+    };
+
+    // Only restrict the offered countries when a list is given.
+    if (ONLY_COUNTRIES.length) {
+      itiOptions.onlyCountries = ONLY_COUNTRIES;
+    }
+
+    if (INITIAL_COUNTRY !== "auto") {
+      // A fixed starting country; no IP lookup.
+      itiOptions.initialCountry = INITIAL_COUNTRY;
+    } else if (GEO_LOOKUP) {
+      // v17: initialCountry "auto" + geoIpLookup(callback).
+      // v29: initialCountryLookup.
+      itiOptions.initialCountryLookup = function () {
+        return fetch("https://ipapi.co/json")
+          .then((res) => res.json())
+          .then((data) => resolveAutoCountry(data && data.country_code))
+          .catch(() => FALLBACK_COUNTRY);
+      };
+    } else {
+      // Detection off: start on the fallback country; no request is made.
+      itiOptions.initialCountry = FALLBACK_COUNTRY;
+    }
+
+    const iti = window.intlTelInput(phoneInput, itiOptions);
 
     function isBlockedNumber(num) {
       return BLOCKED_DIALS.some((d) => num.startsWith(d));
