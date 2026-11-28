@@ -4,7 +4,7 @@ Tags: telephone, international, phone, validation, formatting
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -100,6 +100,9 @@ This plugin connects to the following external service:
 
 == Changelog ==
 
+= 1.3.1 =
+* Fixed: country flags were missing on the settings page on high-resolution (retina) screens.
+
 = 1.3.0 =
 * New: **Settings → International Telephone Box** settings page. Choose which countries are offered (all / only selected / all except selected), the default and fallback country, up to five preferred countries, and whether to detect the visitor's country with ipapi.co. Includes a live preview, follows the admin design system, works without JavaScript, and resets to defaults. With no settings saved, the field behaves exactly as in 1.2.0.
 * New: `Intelebox_Settings` class; a single `intelebox_settings` option sanitized on save and re-validated on read.
@@ -141,6 +144,9 @@ This plugin connects to the following external service:
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.3.1 =
+Fixes missing country flags on the settings page on retina screens.
 
 = 1.3.0 =
 Adds a Settings → International Telephone Box page to choose which countries are offered and how the default country is picked. With no settings saved, behaviour is unchanged from 1.2.0. IP-based country detection can now be turned off.
