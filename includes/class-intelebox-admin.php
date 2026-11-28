@@ -113,6 +113,14 @@ class Intelebox_Admin
             INTELEBOX_INTL_TEL_INPUT_VERSION
         );
 
+        // The bundled 2x sprite is renamed from flags@2x.webp (WordPress.org does
+        // not allow "@" in file names). The front end fixes this path in
+        // international-tel-box.css, which is not loaded here.
+        wp_add_inline_style(
+            'intl-tel-input',
+            ':root{--iti-path-flags-2x:url("' . esc_url( INTELEBOX_PLUGIN_URL . 'public/img/flags-2x.webp' ) . '");}'
+        );
+
         wp_enqueue_style(
             'intelebox-admin',
             INTELEBOX_PLUGIN_URL . 'public/admin/css/admin.css',

@@ -4,7 +4,7 @@
  * Plugin Name: International Telephone Box
  * Plugin URI: https://wordpress.org/plugins/international-telephone-box/
  * Description: A WordPress plugin for handling international telephone numbers with geo location.
- * Version: 1.3.0
+ * Version: 1.3.1
  * Requires at least: 5.0
  * Requires PHP: 7.4
  * Author: Abanob Adel
@@ -21,7 +21,7 @@ if (! defined('WPINC')) {
 }
 
 // Define plugin constants
-define('INTELEBOX_VERSION', '1.3.0');
+define('INTELEBOX_VERSION', '1.3.1');
 define('INTELEBOX_INTL_TEL_INPUT_VERSION', '29.5.12');
 define('INTELEBOX_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('INTELEBOX_PLUGIN_URL', plugin_dir_url(__FILE__));
