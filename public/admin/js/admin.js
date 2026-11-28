@@ -11,6 +11,21 @@
   var DEFAULTS = data.defaults || {};
   var MAX_PREFERRED = typeof data.maxPreferred === "number" ? data.maxPreferred : 5;
 
+  // Shared intl-tel-input options so the preview matches the front end.
+  // keep in sync with public/js/international-tel-box.js
+  var SHARED_ITI_OPTIONS = {
+    separateDialCode: true,
+    numberDisplayFormat: "INTERNATIONAL",
+    placeholderNumberPolicy: "AGGRESSIVE",
+    countrySelectorMode: "DROPDOWN",
+    matchDropdownWidth: false,
+    showFlags: true,
+    placeholderNumberType: "MOBILE",
+    allowedNumberTypes: null,
+    allowNumberExtensions: true,
+    strictMode: false
+  };
+
   var STRINGS = {
     removeCountry: "Remove %s",
     noResults: "No countries found",
@@ -391,22 +406,13 @@
     if (previewIti && typeof previewIti.destroy === "function") previewIti.destroy();
     previewIti = null;
 
-    var opts = {
-      separateDialCode: true,
+    // keep in sync with public/js/international-tel-box.js
+    var opts = Object.assign({}, SHARED_ITI_OPTIONS, {
       countryOrder: cfg.countryOrder,
       excludeCountries: cfg.excludeCountries,
       initialCountry: cfg.initialCountry,
-      numberDisplayFormat: "INTERNATIONAL",
-      placeholderNumberPolicy: "AGGRESSIVE",
-      dropdownParent: document.body,
-      countrySelectorMode: "DROPDOWN",
-      matchDropdownWidth: false,
-      showFlags: true,
-      placeholderNumberType: "MOBILE",
-      allowedNumberTypes: null,
-      allowNumberExtensions: true,
-      strictMode: false
-    };
+      dropdownParent: document.body
+    });
     if (cfg.onlyCountries.length) opts.onlyCountries = cfg.onlyCountries;
 
     // Never pass initialCountryLookup here; preview never contacts ipapi.co.

@@ -7,7 +7,7 @@ function isVisible(el) {
 }
 
 function initializeInternationalTelephoneBox(context = document) {
-  // Site settings, injected by wp_localize_script. Defaults match 1.2.0.
+  // Site settings, injected as JSON by wp_add_inline_script. Defaults match 1.2.0.
   const config =
     typeof window.inteleboxConfig === "object" && window.inteleboxConfig
       ? window.inteleboxConfig

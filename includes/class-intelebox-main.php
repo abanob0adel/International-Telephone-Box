@@ -82,10 +82,11 @@ class Intelebox_Main
             true
         );
 
-        wp_localize_script(
+        // Keep JSON types (bool, arrays); wp_localize_script would stringify everything.
+        wp_add_inline_script(
             'international-telephone-box',
-            'inteleboxConfig',
-            self::public_config()
+            'window.inteleboxConfig = ' . wp_json_encode( self::public_config() ) . ';',
+            'before'
         );
     }
 

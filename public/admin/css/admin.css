@@ -1,7 +1,8 @@
 /**
  * International Telephone Box — admin design system.
  *
- * Every rule is scoped under `.intelebox-admin`. See docs/DESIGN-SYSTEM.md.
+ * Every rule is scoped under `.intelebox-admin`, or under
+ * `body.settings_page_intelebox-settings` for page chrome. See docs/DESIGN-SYSTEM.md.
  * Logical properties are used throughout for RTL. No gradients, no shadows,
  * no rounded cards; hairline rules; pill buttons.
  */
@@ -24,8 +25,7 @@
 
 .intelebox-admin {
     /* Tokens */
-    --ib-paper: #f4f1ea;
-    --ib-paper-2: #efebe2;
+    --ib-paper: #f4f1ea; --ib-paper-2: #efebe2;
     --ib-ink: #1a1917;
     --ib-text: #3c3a35;
     --ib-muted: #6b665e;
@@ -59,13 +59,32 @@
     box-sizing: border-box;
 }
 
+/* ------------------------------------------------- page chrome (our screen only) */
+
+/* Tokens on body too, for chrome outside `.intelebox-admin` (e.g. core notices). */
+body.settings_page_intelebox-settings {
+    --ib-paper: #f4f1ea; --ib-paper-2: #efebe2;
+    --ib-ink: #1a1917;
+    --ib-text: #3c3a35;
+    --ib-muted: #6b665e;
+    --ib-line: #c9c2b2;
+    --ib-accent: #8a5a2b;
+    --ib-danger: #a83a3a;
+    --ib-success: #00795e;
+}
+
+body.settings_page_intelebox-settings #wpcontent,
+body.settings_page_intelebox-settings #wpbody-content {
+    background: var(--ib-paper);
+}
+
 /* ---------------------------------------------------------------- header */
 
-.intelebox-header {
+.intelebox-admin .intelebox-header {
     padding-block-end: 32px;
 }
 
-.intelebox-eyebrow {
+.intelebox-admin .intelebox-eyebrow {
     margin: 0 0 12px;
     font-family: var(--ib-font-mono);
     font-size: 11px;
@@ -75,7 +94,7 @@
     color: var(--ib-muted);
 }
 
-.intelebox-title {
+.intelebox-admin .intelebox-title {
     margin: 0;
     font-family: var(--ib-font-display);
     font-size: 44px;
@@ -85,18 +104,18 @@
     color: var(--ib-ink);
 }
 
-.intelebox-title em {
+.intelebox-admin .intelebox-title em {
     font-style: normal;
     color: var(--ib-accent);
 }
 
-.intelebox-intro {
+.intelebox-admin .intelebox-intro {
     margin: 16px 0 0;
     max-width: 60ch;
     color: var(--ib-text);
 }
 
-.intelebox-heading {
+.intelebox-admin .intelebox-heading {
     margin: 0;
     font-family: var(--ib-font-display);
     font-size: 22px;
@@ -108,7 +127,7 @@
 
 /* --------------------------------------------------------------- sections */
 
-.intelebox-section {
+.intelebox-admin .intelebox-section {
     display: grid;
     grid-template-columns: 240px minmax(0, 1fr);
     gap: 32px;
@@ -116,35 +135,35 @@
     border-block-start: 1px solid var(--ib-line);
 }
 
-.intelebox-section__aside .intelebox-help {
+.intelebox-admin .intelebox-section__aside .intelebox-help {
     margin-block-start: 8px;
 }
 
-.intelebox-section__main {
+.intelebox-admin .intelebox-section__main {
     min-width: 0;
 }
 
-.intelebox-fieldset {
+.intelebox-admin .intelebox-fieldset {
     border: 0;
     margin: 0;
     padding: 0;
     min-width: 0;
 }
 
-.intelebox-field + .intelebox-field,
-.intelebox-fieldset + .intelebox-field,
-.intelebox-field + .intelebox-fieldset,
-.intelebox-fieldset + .intelebox-fieldset {
+.intelebox-admin .intelebox-field + .intelebox-field,
+.intelebox-admin .intelebox-fieldset + .intelebox-field,
+.intelebox-admin .intelebox-field + .intelebox-fieldset,
+.intelebox-admin .intelebox-fieldset + .intelebox-fieldset {
     margin-block-start: 28px;
 }
 
-.intelebox-field {
+.intelebox-admin .intelebox-field {
     margin: 0;
 }
 
 /* ------------------------------------------------------------------ type */
 
-.intelebox-label {
+.intelebox-admin .intelebox-label {
     display: block;
     margin-block-end: 8px;
     padding: 0;
@@ -156,22 +175,30 @@
     color: var(--ib-muted);
 }
 
-.intelebox-help {
+.intelebox-admin .intelebox-help {
     margin: 8px 0 0;
     font-size: 13px;
     line-height: 1.5;
     color: var(--ib-muted);
 }
 
-.intelebox-help a {
+.intelebox-admin .intelebox-help a {
     color: var(--ib-accent);
     text-decoration: underline;
 }
 
+/* Gap between help text and the next label. */
+.intelebox-admin .intelebox-help + .intelebox-label {
+    margin-block-start: 16px;
+}
+
 /* ------------------------------------------------------------- controls */
 
-.intelebox-input,
-.intelebox-select {
+.intelebox-admin input.intelebox-input,
+.intelebox-admin input.intelebox-input[type="search"],
+.intelebox-admin input.intelebox-input[type="text"],
+.intelebox-admin input.intelebox-input[type="tel"],
+.intelebox-admin select.intelebox-select {
     appearance: none;
     -webkit-appearance: none;
     display: block;
@@ -181,44 +208,40 @@
     padding: 10px 0;
     background: transparent;
     border: 0;
-    border-block-end: 1px solid var(--ib-line);
+    border-bottom: 1px solid var(--ib-line);
     border-radius: 0;
+    box-shadow: none;
+    min-height: 0;
     color: var(--ib-text);
     font-family: var(--ib-font-body);
     font-size: 16px;
     line-height: 1.5;
 }
 
-.intelebox-input::placeholder {
+.intelebox-admin input.intelebox-input::placeholder {
     color: var(--ib-muted);
     opacity: 1;
 }
 
-.intelebox-input:focus,
-.intelebox-select:focus {
+.intelebox-admin input.intelebox-input:focus,
+.intelebox-admin select.intelebox-select:focus {
     outline: none;
-    border-block-end-color: var(--ib-ink);
+    border-bottom-color: var(--ib-ink);
 }
 
-.intelebox-select {
+.intelebox-admin select.intelebox-select {
     padding-inline-end: 24px;
-    background-image:
-        linear-gradient(45deg, transparent 50%, var(--ib-muted) 50%),
-        linear-gradient(135deg, var(--ib-muted) 50%, transparent 50%);
-    background-position:
-        calc(100% - 14px) 50%,
-        calc(100% - 8px) 50%;
+    background-image: linear-gradient(45deg, transparent 50%, var(--ib-muted) 50%), linear-gradient(135deg, var(--ib-muted) 50%, transparent 50%);
+    background-position: calc(100% - 14px) 50%, calc(100% - 8px) 50%;
     background-size: 6px 6px, 6px 6px;
     background-repeat: no-repeat;
 }
 
-[dir="rtl"] .intelebox-select {
-    background-position:
-        calc(0% + 14px) 50%,
-        calc(0% + 8px) 50%;
+.intelebox-admin .intelebox-select:dir(rtl) {
+    background-position: calc(0% + 14px) 50%, calc(0% + 8px) 50%;
 }
 
-.intelebox-search {
+.intelebox-admin .intelebox-search {
     margin-block-end: 12px;
     max-width: none;
 }
@@ -231,7 +254,7 @@
 
 /* ------------------------------------------------------ segmented control */
 
-.intelebox-segmented {
+.intelebox-admin .intelebox-segmented {
     display: inline-flex;
     flex-wrap: wrap;
     gap: 4px;
@@ -242,7 +265,7 @@
     max-width: 100%;
 }
 
-.intelebox-segmented__input {
+.intelebox-admin .intelebox-segmented__input {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -255,7 +278,7 @@
     white-space: nowrap;
 }
 
-.intelebox-segmented__label {
+.intelebox-admin .intelebox-segmented__label {
     display: inline-block;
     padding: 8px 16px;
     border-radius: var(--ib-radius-pill);
@@ -267,26 +290,26 @@
     transition: color 150ms ease, background-color 150ms ease;
 }
 
-.intelebox-segmented__input:checked + .intelebox-segmented__label {
+.intelebox-admin .intelebox-segmented__input:checked + .intelebox-segmented__label {
     background: var(--ib-ink);
     color: var(--ib-paper);
 }
 
-.intelebox-segmented__input:focus-visible + .intelebox-segmented__label {
+.intelebox-admin .intelebox-segmented__input:focus-visible + .intelebox-segmented__label {
     outline: 2px solid var(--ib-accent);
     outline-offset: 3px;
 }
 
 /* ---------------------------------------------------------------- toggle */
 
-.intelebox-toggle {
+.intelebox-admin .intelebox-toggle {
     display: inline-flex;
     align-items: center;
     gap: 12px;
     cursor: pointer;
 }
 
-.intelebox-toggle__input {
+.intelebox-admin .intelebox-toggle__input {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -299,7 +322,7 @@
     white-space: nowrap;
 }
 
-.intelebox-toggle__track {
+.intelebox-admin .intelebox-toggle__track {
     position: relative;
     flex: 0 0 auto;
     width: 40px;
@@ -309,7 +332,7 @@
     transition: background-color 150ms ease;
 }
 
-.intelebox-toggle__track::after {
+.intelebox-admin .intelebox-toggle__track::after {
     content: "";
     position: absolute;
     inset-block-start: 2px;
@@ -320,38 +343,38 @@
     background: var(--ib-paper);
 }
 
-.intelebox-toggle__input:checked + .intelebox-toggle__track {
+.intelebox-admin .intelebox-toggle__input:checked + .intelebox-toggle__track {
     background: var(--ib-ink);
 }
 
-.intelebox-toggle__input:checked + .intelebox-toggle__track::after {
+.intelebox-admin .intelebox-toggle__input:checked + .intelebox-toggle__track::after {
     inset-inline-start: 20px;
 }
 
-.intelebox-toggle__input:focus-visible + .intelebox-toggle__track {
+.intelebox-admin .intelebox-toggle__input:focus-visible + .intelebox-toggle__track {
     outline: 2px solid var(--ib-accent);
     outline-offset: 3px;
 }
 
-.intelebox-toggle__label {
+.intelebox-admin .intelebox-toggle__label {
     color: var(--ib-text);
     font-size: 15px;
 }
 
 /* ------------------------------------------------------------------ chips */
 
-.intelebox-chips {
+.intelebox-admin .intelebox-chips {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-block: 12px;
 }
 
-.intelebox-chips:empty {
+.intelebox-admin .intelebox-chips:empty {
     display: none;
 }
 
-.intelebox-chip {
+.intelebox-admin .intelebox-chip {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -364,23 +387,23 @@
     color: var(--ib-ink);
 }
 
-.intelebox-chip .iti__flag {
+.intelebox-admin .intelebox-chip .iti__flag {
     flex: 0 0 auto;
 }
 
-.intelebox-chip__name {
+.intelebox-admin .intelebox-chip__name {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.intelebox-chip__dial {
+.intelebox-admin .intelebox-chip__dial {
     font-family: var(--ib-font-mono);
     font-size: 12px;
     color: var(--ib-muted);
 }
 
-.intelebox-chip__remove {
+.intelebox-admin .intelebox-chip__remove {
     flex: 0 0 auto;
     display: inline-flex;
     align-items: center;
@@ -398,14 +421,14 @@
     transition: color 150ms ease, background-color 150ms ease;
 }
 
-.intelebox-chip__remove:hover {
+.intelebox-admin .intelebox-chip__remove:hover {
     color: var(--ib-ink);
     background: var(--ib-paper-2);
 }
 
 /* ------------------------------------------------------------ country list */
 
-.intelebox-picker__toolbar {
+.intelebox-admin .intelebox-picker__toolbar {
     display: flex;
     align-items: baseline;
     gap: 16px;
@@ -413,14 +436,14 @@
     margin-block: 8px 12px;
 }
 
-.intelebox-counter {
+.intelebox-admin .intelebox-counter {
     margin: 0;
     font-family: var(--ib-font-mono);
     font-size: 12px;
     color: var(--ib-muted);
 }
 
-.intelebox-text-button {
+.intelebox-admin .intelebox-text-button {
     padding: 0;
     border: 0;
     background: transparent;
@@ -431,11 +454,11 @@
     cursor: pointer;
 }
 
-.intelebox-text-button:hover {
+.intelebox-admin .intelebox-text-button:hover {
     color: var(--ib-ink);
 }
 
-.intelebox-country-list {
+.intelebox-admin .intelebox-country-list {
     max-height: 360px;
     overflow-y: auto;
     border: 1px solid var(--ib-line);
@@ -443,7 +466,7 @@
     background: var(--ib-paper);
 }
 
-.intelebox-country-row {
+.intelebox-admin .intelebox-country-row {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -455,24 +478,24 @@
     transition: background-color 150ms ease;
 }
 
-.intelebox-country-row:last-child {
+.intelebox-admin .intelebox-country-row:last-child {
     border-block-end: 0;
 }
 
-.intelebox-country-row:hover {
+.intelebox-admin .intelebox-country-row:hover {
     background: var(--ib-paper-2);
 }
 
-.intelebox-country-row:has(input[type="checkbox"]:checked),
-.intelebox-country-row.intelebox-checked {
+.intelebox-admin .intelebox-country-row:has(input[type="checkbox"]:checked),
+.intelebox-admin .intelebox-country-row.intelebox-checked {
     background: var(--ib-accent-soft);
 }
 
-.intelebox-country-row[hidden] {
+.intelebox-admin .intelebox-country-row[hidden] {
     display: none;
 }
 
-.intelebox-country-row input[type="checkbox"] {
+.intelebox-admin .intelebox-country-row input[type="checkbox"] {
     flex: 0 0 auto;
     width: 16px;
     height: 16px;
@@ -480,11 +503,11 @@
     accent-color: var(--ib-accent);
 }
 
-.intelebox-country-row .iti__flag {
+.intelebox-admin .intelebox-country-row .iti__flag {
     flex: 0 0 auto;
 }
 
-.intelebox-country-name {
+.intelebox-admin .intelebox-country-name {
     flex: 1 1 auto;
     min-width: 0;
     overflow: hidden;
@@ -493,7 +516,7 @@
     color: var(--ib-ink);
 }
 
-.intelebox-country-dial {
+.intelebox-admin .intelebox-country-dial {
     flex: 0 0 auto;
     font-family: var(--ib-font-mono);
     font-size: 12px;
@@ -501,7 +524,7 @@
     text-align: end;
 }
 
-.intelebox-no-results {
+.intelebox-admin .intelebox-no-results {
     margin: 0;
     padding: 16px 12px;
     color: var(--ib-muted);
@@ -510,23 +533,23 @@
 
 /* --------------------------------------------------------------- preview */
 
-.intelebox-preview {
+.intelebox-admin .intelebox-preview {
     max-width: 420px;
     margin-block-start: 8px;
 }
 
-.intelebox-preview .intelebox-input {
+.intelebox-admin .intelebox-preview .intelebox-input {
     max-width: none;
 }
 
 /* The preview uses intl-tel-input's own styles; just blend the underline. */
-.intelebox-preview .iti {
+.intelebox-admin .intelebox-preview .iti {
     width: 100%;
 }
 
 /* --------------------------------------------------------------- buttons */
 
-.intelebox-footer {
+.intelebox-admin .intelebox-footer {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
@@ -534,7 +557,7 @@
     border-block-start: 1px solid var(--ib-line);
 }
 
-.intelebox-button {
+.intelebox-admin .intelebox-button {
     appearance: none;
     display: inline-flex;
     align-items: center;
@@ -549,35 +572,34 @@
     transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 
-.intelebox-button--primary {
+.intelebox-admin .intelebox-button--primary {
     background: var(--ib-ink);
     color: var(--ib-paper);
     border: 0;
 }
 
-.intelebox-button--primary:hover {
+.intelebox-admin .intelebox-button--primary:hover {
     background: #000;
 }
 
-.intelebox-button--secondary {
+.intelebox-admin .intelebox-button--secondary {
     background: transparent;
     color: var(--ib-ink);
     border: 1px solid var(--ib-line);
 }
 
-.intelebox-button--secondary:hover {
+.intelebox-admin .intelebox-button--secondary:hover {
     border-color: var(--ib-ink);
 }
 
-.intelebox-button:focus-visible {
+.intelebox-admin .intelebox-button:focus-visible {
     outline: 2px solid var(--ib-accent);
     outline-offset: 3px;
 }
 
 /* --------------------------------------------------------------- notices */
 
-.intelebox-admin .notice,
-.intelebox-admin div.notice {
+body.settings_page_intelebox-settings .notice {
     margin: 0 0 24px;
     padding: 8px 0 8px 12px;
     border: 0;
@@ -587,36 +609,36 @@
     color: var(--ib-text);
 }
 
-.intelebox-admin .notice p {
+body.settings_page_intelebox-settings .notice p {
     margin: 0;
     padding: 0;
 }
 
-.intelebox-admin .notice-success,
-.intelebox-admin .notice.is-success,
-.intelebox-admin .updated {
+body.settings_page_intelebox-settings .notice-success,
+body.settings_page_intelebox-settings .notice.is-success,
+body.settings_page_intelebox-settings .updated {
     border-inline-start-color: var(--ib-success);
     color: var(--ib-success);
 }
 
-.intelebox-admin .notice-error,
-.intelebox-admin .notice.is-error,
-.intelebox-admin .error {
+body.settings_page_intelebox-settings .notice-error,
+body.settings_page_intelebox-settings .notice.is-error,
+body.settings_page_intelebox-settings .error {
     border-inline-start-color: var(--ib-danger);
     color: var(--ib-danger);
 }
 
-.intelebox-admin .notice-warning,
-.intelebox-admin .notice.is-warning {
+body.settings_page_intelebox-settings .notice-warning,
+body.settings_page_intelebox-settings .notice.is-warning {
     border-inline-start-color: var(--ib-accent);
 }
 
-.intelebox-admin .notice-info,
-.intelebox-admin .notice.is-info {
+body.settings_page_intelebox-settings .notice-info,
+body.settings_page_intelebox-settings .notice.is-info {
     border-inline-start-color: var(--ib-ink);
 }
 
-.intelebox-admin .notice-dismiss {
+body.settings_page_intelebox-settings .notice-dismiss {
     color: var(--ib-muted);
 }
 
@@ -627,14 +649,27 @@
         padding-inline: 16px;
     }
 
-    .intelebox-title {
+    .intelebox-admin .intelebox-title {
         font-size: 32px;
     }
 
-    .intelebox-section {
+    .intelebox-admin .intelebox-section {
         grid-template-columns: 1fr;
         gap: 16px;
         padding-block: 28px;
+    }
+
+    /* Segmented control: full width, three equal columns, wrapping labels. */
+    .intelebox-admin .intelebox-segmented {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        width: 100%;
+        flex-wrap: nowrap;
+    }
+
+    .intelebox-admin .intelebox-segmented__label {
+        text-align: center;
+        white-space: normal;
     }
 }
 

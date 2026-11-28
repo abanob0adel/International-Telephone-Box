@@ -136,10 +136,11 @@ class Intelebox_Admin
             true
         );
 
-        wp_localize_script(
+        // Keep JSON types (bool, numbers); wp_localize_script would stringify everything.
+        wp_add_inline_script(
             'intelebox-admin',
-            'inteleboxAdmin',
-            $this->localized_data()
+            'window.inteleboxAdmin = ' . wp_json_encode( $this->localized_data() ) . ';',
+            'before'
         );
     }
 
@@ -167,9 +168,9 @@ class Intelebox_Admin
                 'removeCountry'  => __( 'Remove %s', 'international-telephone-box' ),
                 'noResults'      => __( 'No countries found', 'international-telephone-box' ),
                 /* translators: %d: number of selected countries. */
-                'selectedCount'  => __( '%d selected', 'international-telephone-box' ),
+                'selectedCount'  => _n( '%d selected', '%d selected', 1, 'international-telephone-box' ),
                 /* translators: 1: current number of preferred countries, 2: maximum number. */
-                'preferredCount' => __( '%1$d of %2$d selected', 'international-telephone-box' ),
+                'preferredCount' => _n( '%1$d of %2$d selected', '%1$d of %2$d selected', 1, 'international-telephone-box' ),
                 'selectAll'      => __( 'Select all visible', 'international-telephone-box' ),
                 'clear'          => __( 'Clear', 'international-telephone-box' ),
                 'previewLabel'   => __( 'Preview', 'international-telephone-box' ),
@@ -205,8 +206,6 @@ class Intelebox_Admin
         );
         ?>
 <div class="wrap intelebox-admin">
-    <?php settings_errors(); ?>
-
     <header class="intelebox-header">
         <p class="intelebox-eyebrow"><?php esc_html_e( 'International Telephone Box · Settings', 'international-telephone-box' ); ?></p>
         <h1 class="intelebox-title"><?php esc_html_e( 'Phone field', 'international-telephone-box' ); ?> <em><?php esc_html_e( 'countries', 'international-telephone-box' ); ?></em></h1>
@@ -246,7 +245,11 @@ class Intelebox_Admin
                         <div class="intelebox-chips" data-chips aria-label="<?php esc_attr_e( 'Selected countries', 'international-telephone-box' ); ?>"></div>
 
                         <div class="intelebox-picker__toolbar">
-                            <p class="intelebox-counter" data-counter aria-live="polite">0 <?php esc_html_e( 'selected', 'international-telephone-box' ); ?></p>
+                            <p class="intelebox-counter" data-counter aria-live="polite"><?php
+                            $n = count( $selected );
+                            /* translators: %d: number of selected countries. */
+                            echo esc_html( sprintf( _n( '%d selected', '%d selected', $n, 'international-telephone-box' ), $n ) );
+                            ?></p>
                             <button type="button" class="intelebox-text-button" data-select-all><?php esc_html_e( 'Select all visible', 'international-telephone-box' ); ?></button>
                             <button type="button" class="intelebox-text-button" data-clear><?php esc_html_e( 'Clear', 'international-telephone-box' ); ?></button>
                         </div>

@@ -162,6 +162,22 @@ class Intelebox_Settings
             }
         }
 
+        // Exclude mode with every country selected leaves nothing to offer:
+        // treat it like include-with-none and fall back to "all".
+        if ( 'exclude' === $mode && ! empty( $valid_codes ) && count( $selected ) >= count( $valid_codes ) ) {
+            $mode     = 'all';
+            $selected = array();
+
+            if ( $report_errors && function_exists( 'add_settings_error' ) ) {
+                add_settings_error(
+                    self::OPTION_NAME,
+                    'intelebox_excluded_all_countries',
+                    __( 'You excluded every country. Leave at least one available.', 'international-telephone-box' ),
+                    'error'
+                );
+            }
+        }
+
         // The set of countries actually offered.
         if ( 'include' === $mode ) {
             $offered = $selected;
